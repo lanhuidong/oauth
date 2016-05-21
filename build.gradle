@@ -1,0 +1,41 @@
+apply plugin: "idea"
+
+idea {
+    project {
+        jdkName = JavaVersion.VERSION_1_8
+        languageLevel = JavaVersion.VERSION_1_8
+    }
+}
+
+allprojects {
+    apply plugin: 'java'
+    group = 'com.nexusy.oauth'
+    version = '1.0.0'
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+subprojects {
+    apply plugin: 'war'
+    repositories {
+        mavenCentral()
+    }
+}
+
+project(':oauth-server') {
+    task createProject << {
+        sourceSets*.allSource.srcDirs*.each { it.mkdirs() }
+        def webAppDir = file("$webAppDirName")
+        webAppDir.mkdirs()
+        println 'Project ' + name + ' created'
+    }
+}
+
+project(':oauth-client') {
+    task createProject << {
+        sourceSets*.allSource.srcDirs*.each { it.mkdirs() }
+        def webAppDir = file("$webAppDirName")
+        webAppDir.mkdirs()
+        println 'Project ' + name + ' created'
+    }
+}
