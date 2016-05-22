@@ -15,14 +15,43 @@ allprojects {
     targetCompatibility = JavaVersion.VERSION_1_8
 }
 
+def springVersion = '4.2.6.RELEASE'
+def freemarkVersion = '2.3.23'
+def servletAPIVersion = '3.1.0'
+
 subprojects {
     apply plugin: 'war'
+    apply plugin: 'org.akhikhl.gretty'
+
     repositories {
         mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        compile "org.springframework:spring-context-support:$springVersion"
+        compile "org.springframework:spring-webmvc:$springVersion"
+        compile "org.freemarker:freemarker:$freemarkVersion"
+        providedCompile "javax.servlet:javax.servlet-api:$servletAPIVersion"
+    }
+}
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'org.akhikhl.gretty:gretty:+'
     }
 }
 
 project(':oauth-server') {
+
+    gretty {
+        servletContainer = 'tomcat8'
+        httpPort = 8080
+        contextPath = '/server'
+    }
+
     task createProject << {
         sourceSets*.allSource.srcDirs*.each { it.mkdirs() }
         def webAppDir = file("$webAppDirName")
@@ -32,6 +61,13 @@ project(':oauth-server') {
 }
 
 project(':oauth-client') {
+
+    gretty {
+        servletContainer = 'tomcat8'
+        httpPort = 8081
+        contextPath = '/client'
+    }
+
     task createProject << {
         sourceSets*.allSource.srcDirs*.each { it.mkdirs() }
         def webAppDir = file("$webAppDirName")
