@@ -22,6 +22,7 @@ def freemarkVersion = '2.3.23'
 def servletAPIVersion = '3.1.0'
 def HikariCPVersion = '2.4.6'
 def mysqlConnectorJavaVersion = '5.1.31'
+def jacksonVersion = '2.7.4'
 
 subprojects {
     apply plugin: 'war'
@@ -39,6 +40,8 @@ subprojects {
         compile "org.springframework.security.oauth:spring-security-oauth2:$springSecurityOAuthVersion"
         compile "org.freemarker:freemarker:$freemarkVersion"
         providedCompile "javax.servlet:javax.servlet-api:$servletAPIVersion"
+        compile "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
+        compile "com.fasterxml.jackson.core:jackson-annotations:$jacksonVersion"
     }
 }
 

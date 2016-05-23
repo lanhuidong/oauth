@@ -31,7 +31,7 @@ public class APIResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .and()
                 .requestMatchers().antMatchers("/me")
                 .and()
-                .authorizeRequests().antMatchers("/me").access("ROLE_USER");
+                .authorizeRequests().antMatchers("/me").access("#oauth2.hasScope('READ')");
     }
 
 }
