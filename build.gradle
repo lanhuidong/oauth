@@ -16,8 +16,12 @@ allprojects {
 }
 
 def springVersion = '4.2.6.RELEASE'
+def springSecurityVersion = '4.1.0.RELEASE'
+def springSecurityOAuthVersion = '2.0.9.RELEASE'
 def freemarkVersion = '2.3.23'
 def servletAPIVersion = '3.1.0'
+def HikariCPVersion = '2.4.6'
+def mysqlConnectorJavaVersion = '5.1.31'
 
 subprojects {
     apply plugin: 'war'
@@ -30,6 +34,9 @@ subprojects {
     dependencies {
         compile "org.springframework:spring-context-support:$springVersion"
         compile "org.springframework:spring-webmvc:$springVersion"
+        compile "org.springframework.security:spring-security-web:$springSecurityVersion"
+        compile "org.springframework.security:spring-security-config:$springSecurityVersion"
+        compile "org.springframework.security.oauth:spring-security-oauth2:$springSecurityOAuthVersion"
         compile "org.freemarker:freemarker:$freemarkVersion"
         providedCompile "javax.servlet:javax.servlet-api:$servletAPIVersion"
     }
@@ -50,6 +57,12 @@ project(':oauth-server') {
         servletContainer = 'tomcat8'
         httpPort = 8080
         contextPath = '/server'
+    }
+
+    dependencies {
+        compile "com.zaxxer:HikariCP:$HikariCPVersion"
+        runtime "mysql:mysql-connector-java:$mysqlConnectorJavaVersion"
+        compile "org.springframework:spring-jdbc:$springVersion"
     }
 
     task createProject << {

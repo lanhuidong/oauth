@@ -24,13 +24,7 @@
         </style>
     </head>
     <body>
-        <div style="text-align:center;margin-top:50px">
-            <form action="/server/login" method="POST">
-                <label>用户名：</label><input class="form-control" type="text" name="username" /><br/><br/>
-                <label>密&nbsp;码：</label><input class="form-control" type="password" name="password" /><br/><br/>
-                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                <button type="submit" class="btn">登录</button>
-            </form>
+        <div style="text-align:center;margin-top:50px">xx
         </div>
     </body>
 </html>
