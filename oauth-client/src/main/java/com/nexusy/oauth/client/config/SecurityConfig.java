@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.oauth2.client.OAuth2RestTemplate;
@@ -31,6 +32,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private OAuth2RestTemplate restTemplate;
 
+    @Autowired
+    private OAuth2ClientContextFilter oAuth2ClientContextFilter;
+
     @Override
     @Bean
     public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -47,9 +51,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .addFilterBefore(oAuth2ClientContextFilter(), ExceptionTranslationFilter.class)
+                .anonymous().disable()
+                .addFilterBefore(oAuth2ClientContextFilter, ExceptionTranslationFilter.class)
                 .addFilterAfter(myAuthenticationFilter(), ExceptionTranslationFilter.class)
-                .authorizeRequests().antMatchers("/").permitAll().anyRequest().hasRole("USER")
+                .authorizeRequests().antMatchers("/u/**").hasRole("USER")
                 .and()
                 .exceptionHandling().accessDeniedPage("/?authorization_error=true")
                 .and()
@@ -58,11 +63,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout().logoutUrl("/logout").logoutSuccessUrl("/")
                 .and()
                 .formLogin().loginPage("/");
-    }
-
-    @Bean
-    public OAuth2ClientContextFilter oAuth2ClientContextFilter() {
-        return new OAuth2ClientContextFilter();
     }
 
     @Bean

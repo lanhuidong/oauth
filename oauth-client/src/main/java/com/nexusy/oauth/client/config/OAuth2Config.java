@@ -1,5 +1,6 @@
 package com.nexusy.oauth.client.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.oauth2.client.OAuth2ClientContext;
@@ -18,6 +19,9 @@ import java.util.Collections;
 @EnableOAuth2Client
 public class OAuth2Config {
 
+    @Autowired
+    private OAuth2ClientContext oAuth2ClientContext;
+
     @Bean
     public OAuth2ProtectedResourceDetails api() {
         AuthorizationCodeResourceDetails details = new AuthorizationCodeResourceDetails();
@@ -32,7 +36,7 @@ public class OAuth2Config {
     }
 
     @Bean
-    public OAuth2RestTemplate loginRestTemplate(OAuth2ClientContext clientContext) {
-        return new OAuth2RestTemplate(api(), clientContext);
+    public OAuth2RestTemplate loginRestTemplate() {
+        return new OAuth2RestTemplate(api(), oAuth2ClientContext);
     }
 }
