@@ -29,6 +29,7 @@ subprojects {
     apply plugin: 'org.akhikhl.gretty'
 
     repositories {
+        mavenLocal()
         mavenCentral()
         jcenter()
     }

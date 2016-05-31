@@ -4,6 +4,9 @@
         <title>首页</title>
     </head>
     <body>
-        <div>OAuth 2.0客户端</div>
+        <form action="/client/oauth/callback" method="POST">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+            <button type="submit" class="btn">登录</button>
+        </form>
     </body>
 </html>
