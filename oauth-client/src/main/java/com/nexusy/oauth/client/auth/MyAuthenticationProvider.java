@@ -37,6 +37,7 @@ public class MyAuthenticationProvider extends DaoAuthenticationProvider {
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         OAuth2AccessToken accessToken = restTemplate.getAccessToken();
+        System.out.println("access token:" + accessToken.getValue());
         User user = restTemplate.getForObject("http://localhost:8080/server/me", User.class);
         return new MyAuthenticationToken(user.getAuthorities(), null, user);
     }
