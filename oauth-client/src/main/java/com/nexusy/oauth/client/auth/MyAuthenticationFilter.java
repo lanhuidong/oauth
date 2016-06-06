@@ -34,7 +34,8 @@ public class MyAuthenticationFilter extends UsernamePasswordAuthenticationFilter
     }
 
     @Override
-    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
+    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
+            throws AuthenticationException {
         MyAuthenticationToken mat = new MyAuthenticationToken("", null, null);
         return getAuthenticationManager().authenticate(mat);
     }

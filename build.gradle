@@ -25,6 +25,12 @@ subprojects {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
 
+    apply plugin: 'checkstyle'
+    checkstyle{
+        toolVersion = '6.19'  //该行的作用是指定com.puppycrawl.tools:checkstyle的版本
+        configFile = rootProject.file('config/checkstyle/checkstyle.xml')
+    }
+
     apply plugin: 'war'
     apply plugin: 'org.akhikhl.gretty'
 

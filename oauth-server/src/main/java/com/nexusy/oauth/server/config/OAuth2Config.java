@@ -36,7 +36,7 @@ public class OAuth2Config {
     @EnableResourceServer
     protected static class APIResourceServerConfig extends ResourceServerConfigurerAdapter {
 
-        public final static String API_RESOURCES_ID = "API";
+        public static final String API_RESOURCES_ID = "API";
 
         @Override
         public void configure(ResourceServerSecurityConfigurer resources) throws Exception {

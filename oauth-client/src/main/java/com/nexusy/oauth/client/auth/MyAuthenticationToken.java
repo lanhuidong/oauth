@@ -15,7 +15,8 @@ public class MyAuthenticationToken extends AbstractAuthenticationToken {
     private Object principal;
     private String ip;
 
-    public MyAuthenticationToken(Collection<? extends GrantedAuthority> authorities, Object credentials, Object principal) {
+    public MyAuthenticationToken(Collection<? extends GrantedAuthority> authorities, Object credentials,
+                                 Object principal) {
         super(authorities);
         this.credentials = credentials;
         this.principal = principal;
